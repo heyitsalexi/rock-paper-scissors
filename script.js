@@ -22,7 +22,9 @@ function getHumanChoice() {
     // Check for valid player input
     while (true) {
         humanInput = prompt("Choose rock, paper, or scissors!").toLowerCase();
-        if (humanInput === 'rock' || humanInput === 'paper' || humanInput === 'scissors') {
+        if (humanInput === 'rock' || 
+            humanInput === 'paper' || 
+            humanInput === 'scissors') {
             break;
         } else {
             alert("Invalid entry. Check your spelling!")
@@ -64,15 +66,21 @@ function playGame(numRounds) {
 
             // Run-through win conditions
             if (humanChoice === computerChoice) {
-                console.log(`Tie Game! ${capitalize(humanChoice)} vs. ${capitalize(computerChoice)}.`);
+                console.log("Tie Game! " +
+                    `${capitalize(humanChoice)} vs. ` +
+                    `${capitalize(computerChoice)}.`);
             } else if (
                 (humanChoice === 'rock' && computerChoice === 'scissors') ||
                 (humanChoice === 'paper' && computerChoice === 'rock') ||
                 (humanChoice === 'scissors' && computerChoice === 'paper')) {
-                    console.log(`You Win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}.`);
+                    console.log("You Win! " + 
+                        `${capitalize(humanChoice)} beats ` +
+                        `${capitalize(computerChoice)}.`);
                     humanScore++;
             } else {
-                console.log(`You Lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}.`);
+                console.log("You Lose! " + 
+                    `${capitalize(computerChoice)} beats ` +
+                    `${capitalize(humanChoice)}.`);
                 computerScore++;
             };
         }     
