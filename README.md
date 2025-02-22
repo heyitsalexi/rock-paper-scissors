@@ -10,4 +10,4 @@ This is a project to build a basic rock-paper-scissors game. The project was com
 
 The core focus of the project was to practice using **JavasScript Functions**.
 
-The output is a console-based JavaScript game (i.e., without any HTML or CSS Styling). The game goes until a "Best of 5". It ignores any ties or invalid entries.
+The output is a console-based JavaScript game (i.e., without any HTML or CSS Styling).
