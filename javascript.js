@@ -16,12 +16,17 @@ function getComputerChoice() {
 
 // Gather player input
 function getHumanChoice() {
-    
-    // Get input
-    let humanSelection = prompt("Choose rock, paper, or scissors!");
 
-    // Return cleaned text
-    return humanSelection.toLowerCase();
+    // Check for valid player input
+    while (true){
+        humanInput = prompt("Choose rock, paper, or scissors!").toLowerCase();
+        if (humanInput === 'rock' || humanInput === 'paper' || humanInput === 'scissors') {
+            break;
+        } else {alert("Invalid entry. Check your spelling!")};
+    };
+
+    // Return input
+    return humanInput;
 }
 
 // Determine the winner
@@ -61,33 +66,14 @@ function playRound(humanChoice, computerChoice) {
     }
 
     // Run-through win conditions
-    if (humanChoice === 'rock') {
-        if (computerChoice === 'rock') {
-            showTie();
-        } else if (computerChoice === 'paper') {
-            showComputerWin();
-        } else {
+    if (humanChoice === computerChoice) {
+        showTie();
+    } else if (
+        (humanChoice === 'rock' && computerChoice === 'scissors') ||
+        (humanChoice === 'paper' && computerChoice === 'rock') ||
+        (humanChoice === 'scissors' && computerChoice === 'paper')) {
             showHumanWin();
-        }
-    } else if (humanChoice === 'paper') {
-        if (computerChoice === 'rock') {
-            showHumanWin();
-        } else if (computerChoice === 'paper') {
-            showTie();
-        } else {
-            showComputerWin();
-        }
-    } else if (humanChoice === 'scissors') {
-        if (computerChoice === 'rock') {
-            showComputerWin();
-        } else if (computerChoice === 'paper') {
-            showHumanWin();
-        } else {
-            showTie();
-        }  
-    } else {
-        alert("You did not enter a valid option.")
-    }
+    } else {showComputerWin()};
 
     // Return the winner
     return(winner);
