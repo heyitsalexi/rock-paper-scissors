@@ -134,11 +134,16 @@ function playGame(numRounds) {
 
     // Declare an end of game statement
     if (humanScore === winScore) {
-        console.log("You Win! Your score: " + humanScore + ". Computer Score: " + computerScore + ".");
+        let finalHumanMessage = "You Win! Your score: " + humanScore + ". Computer Score: " + computerScore + ".";
+        console.log(finalHumanMessage);
+        alert(finalHumanMessage);
     } else {
-        console.log("You Lose! Your score: " + humanScore + ". Computer score: " + computerScore + ".");
+        let finalComputerMessage = "You Lose! Your score: " + humanScore + ". Computer score: " + computerScore + ".";
+        console.log(finalComputerMessage);
+        alert(finalComputerMessage);
     }
 }
 
 // Play the game to "Best of 5". (Note: Ignores any tie-rounds)
+alert("This is a Console-Based JavaScript Game. Play Rock-Paper-Scissors (Best of 5!)");
 playGame(5);
