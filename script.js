@@ -17,8 +17,10 @@ function getComputerChoice() {
 // Gather player input
 function getHumanChoice() {
 
+    let humanInput = "";
+
     // Check for valid player input
-    while (true){
+    while (true) {
         humanInput = prompt("Choose rock, paper, or scissors!").toLowerCase();
         if (humanInput === 'rock' || humanInput === 'paper' || humanInput === 'scissors') {
             break;
@@ -45,14 +47,14 @@ function playGame(numRounds) {
     // Repeat the game based on the number of rounds
     for (let i = 0; i < numRounds; i++) {
         
-        // Initialize the values
+        // Update the values
         humanSelection = getHumanChoice();
         computerSelection = getComputerChoice();
 
         // Play the round and determine the winner
         playRound(humanSelection, computerSelection);
 
-        // Determine the winner
+        // Function to determine the winner
         function playRound(humanChoice, computerChoice) {
 
             // Capitalize text for display messages
