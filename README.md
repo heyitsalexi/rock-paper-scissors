@@ -8,6 +8,6 @@ This is a project to build a basic rock-paper-scissors game. The project was com
 
 ## Skills Practiced
 
-The core focus of the project was to practice using **JavasScript Functions**.
+The core focus of the project was to practice **JavasScript Functions**, and **DOM Manipulation**.
 
-The output is a console-based JavaScript game (i.e., without any HTML or CSS Styling).
+The output is a JavaScript game with basic UI.
