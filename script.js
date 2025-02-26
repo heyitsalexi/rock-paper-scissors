@@ -1,100 +1,101 @@
-// Generate a random guess for the computer
+const btnContainer = document.querySelector("#button-container");
+const buttons = document.querySelectorAll("button");
+const resultsContainer = document.querySelector("#results-container");
+const result = document.createElement("div");
+const currentRound = document.createElement("div");
+
 function getComputerChoice() {
-
-    // Randomly select a number
     let choiceIndex = Math.random();
-
-    // Based on the number, assign a choice
     if (choiceIndex > 0.66) {
         return "rock";
     } else if (choiceIndex < 0.34) {
         return "paper";
     } else {
         return "scissors";
-    }
+    };
 }
 
-// Gather player input
-function getHumanChoice() {
+function capitalize (stringVal) {
+    return stringVal.at(0).toUpperCase() + stringVal.slice(1);
+}
 
-    let humanInput = "";
+function playRound(humanChoice) {
 
-    // Check for valid player input
-    while (true) {
-        humanInput = prompt("Choose rock, paper, or scissors!").toLowerCase();
-        if (humanInput === 'rock' || 
-            humanInput === 'paper' || 
-            humanInput === 'scissors') {
-            break;
-        } else {
-            alert("Invalid entry. Check your spelling!");
-        };
+    let computerChoice = getComputerChoice();
+    let roundWinner = "";
+
+    if (humanChoice === computerChoice) {
+        currentRound.textContent = "Tie Game! " +
+                    `${capitalize(humanChoice)} vs. ` +
+                    `${capitalize(computerChoice)}.`;
+        roundWinner = "tie";
+    } else if (
+        (humanChoice === 'rock' && computerChoice === 'scissors') ||
+        (humanChoice === 'paper' && computerChoice === 'rock') ||
+        (humanChoice === 'scissors' && computerChoice === 'paper')) {
+            currentRound.textContent = "You Win! " + 
+                        `${capitalize(humanChoice)} beats ` +
+                        `${capitalize(computerChoice)}.`;
+            roundWinner = "human";
+    } else {
+        currentRound.textContent = "You Lose! " + 
+                    `${capitalize(computerChoice)} beats ` +
+                    `${capitalize(humanChoice)}.`;
+        roundWinner = "computer";
     };
 
-    // Return input
-    return humanInput;
+    resultsContainer.appendChild(currentRound);
+    return roundWinner;
 }
 
-// Declare function: Play Rock-Paper-Scissors based on number of rounds
-function playGame(numRounds) {
-
-    // Initialize choice variables
-    let humanSelection = "";
-    let computerSelection = "";
-
-    // Initialize score variables
+function playGame(){
     let humanScore = 0;
     let computerScore = 0;
+    let roundNumber = 0;
 
-    // Repeat the game based on the number of rounds
-    for (let i = 0; i < numRounds; i++) {
-        
-        // Update the values
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            let roundWinner = playRound(button.id);
+            updateScore(roundWinner);
+        });
+    });
 
-        // Play the round and determine the winner
-        playRound(humanSelection, computerSelection);
+    function updateScore(roundWinner) {
+        if (roundWinner === "human") {
+            humanScore++;
+        } else if (roundWinner === "computer") {
+            computerScore++;
+        }
+    
+        roundNumber++;
 
-        // Function to determine the winner
-        function playRound(humanChoice, computerChoice) {
+        result.textContent = `You: ${humanScore} 
+        Computer: ${computerScore}
+        Round: ${roundNumber}`;
+        resultsContainer.appendChild(result);
 
-            // Capitalize text for display messages
-            function capitalize (stringVal) {
-                return stringVal.at(0).toUpperCase() + stringVal.slice(1);
-            }
-
-            // Run-through win conditions
-            if (humanChoice === computerChoice) {
-                console.log("Tie Game! " +
-                    `${capitalize(humanChoice)} vs. ` +
-                    `${capitalize(computerChoice)}.`);
-            } else if (
-                (humanChoice === 'rock' && computerChoice === 'scissors') ||
-                (humanChoice === 'paper' && computerChoice === 'rock') ||
-                (humanChoice === 'scissors' && computerChoice === 'paper')) {
-                    console.log("You Win! " + 
-                        `${capitalize(humanChoice)} beats ` +
-                        `${capitalize(computerChoice)}.`);
-                    humanScore++;
-            } else {
-                console.log("You Lose! " + 
-                    `${capitalize(computerChoice)} beats ` +
-                    `${capitalize(humanChoice)}.`);
-                computerScore++;
-            };
-        }     
+        if (humanScore === 5 || computerScore == 5) {
+            endGame(humanScore);
+        }
     }
-
-    // Declare an end of game statement
-    if (humanScore > computerScore) {
-        console.log(`You Win! You: ${humanScore}. Computer: ${computerScore}.`);
-    } else if (humanScore < computerScore) {
-        console.log(`You Lose! You: ${humanScore}. Computer: ${computerScore}.`);
-    } else {
-        console.log(`Tie Game! You: ${humanScore}. Computer: ${computerScore}.`);
-    };
 }
 
-// Play 5 rounds
-playGame(5);
+function endGame(humanScore) {
+    const winnerText = document.createElement("div");
+
+    humanScore === 5 ? winnerText.textContent = "End of Game! You Win!" : 
+        winnerText.textContent = "End of Game! You Lose!";
+
+    resultsContainer.removeChild(result);
+    resultsContainer.removeChild(currentRound);
+
+    buttons.forEach((button) => {
+        btnContainer.removeChild(button);
+    });
+
+    resultsContainer.appendChild(winnerText);
+    
+}
+
+playGame()
+
