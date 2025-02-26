@@ -1,8 +1,9 @@
 const btnContainer = document.querySelector("#button-container");
 const buttons = document.querySelectorAll("button");
 const resultsContainer = document.querySelector("#results-container");
-const result = document.createElement("div");
-const currentRound = document.createElement("div");
+const currentResultText = document.createElement("p");
+const totalResultText = document.createElement("p");
+const winnerText = document.createElement("p");
 
 function getComputerChoice() {
     let choiceIndex = Math.random();
@@ -25,26 +26,26 @@ function playRound(humanChoice) {
     let roundWinner = "";
 
     if (humanChoice === computerChoice) {
-        currentRound.textContent = "Tie Game! " +
-                    `${capitalize(humanChoice)} vs. ` +
-                    `${capitalize(computerChoice)}.`;
+        currentResultText.textContent = "Tie Game! " +
+            `${capitalize(humanChoice)} vs. ` +
+            `${capitalize(computerChoice)}.`;
         roundWinner = "tie";
     } else if (
         (humanChoice === 'rock' && computerChoice === 'scissors') ||
         (humanChoice === 'paper' && computerChoice === 'rock') ||
         (humanChoice === 'scissors' && computerChoice === 'paper')) {
-            currentRound.textContent = "You Win! " + 
-                        `${capitalize(humanChoice)} beats ` +
-                        `${capitalize(computerChoice)}.`;
+            currentResultText.textContent = "You Win! " + 
+                `${capitalize(humanChoice)} beats ` +
+                `${capitalize(computerChoice)}.`;
             roundWinner = "human";
     } else {
-        currentRound.textContent = "You Lose! " + 
-                    `${capitalize(computerChoice)} beats ` +
-                    `${capitalize(humanChoice)}.`;
+        currentResultText.textContent = "You Lose! " + 
+            `${capitalize(computerChoice)} beats ` +
+            `${capitalize(humanChoice)}.`;
         roundWinner = "computer";
     };
 
-    resultsContainer.appendChild(currentRound);
+    resultsContainer.appendChild(currentResultText);
     return roundWinner;
 }
 
@@ -69,10 +70,10 @@ function playGame(){
     
         roundNumber++;
 
-        result.textContent = `You: ${humanScore} 
+        totalResultText.textContent = `You: ${humanScore} 
         Computer: ${computerScore}
         Round: ${roundNumber}`;
-        resultsContainer.appendChild(result);
+        resultsContainer.appendChild(totalResultText);
 
         if (humanScore === 5 || computerScore == 5) {
             endGame(humanScore);
@@ -81,13 +82,11 @@ function playGame(){
 }
 
 function endGame(humanScore) {
-    const winnerText = document.createElement("div");
-
     humanScore === 5 ? winnerText.textContent = "End of Game! You Win!" : 
         winnerText.textContent = "End of Game! You Lose!";
 
-    resultsContainer.removeChild(result);
-    resultsContainer.removeChild(currentRound);
+    resultsContainer.removeChild(currentResultText);
+    resultsContainer.removeChild(totalResultText);
 
     buttons.forEach((button) => {
         btnContainer.removeChild(button);
@@ -98,4 +97,3 @@ function endGame(humanScore) {
 }
 
 playGame()
-
