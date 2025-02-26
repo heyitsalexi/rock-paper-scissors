@@ -27,7 +27,7 @@ function getHumanChoice() {
             humanInput === 'scissors') {
             break;
         } else {
-            alert("Invalid entry. Check your spelling!")
+            alert("Invalid entry. Check your spelling!");
         };
     };
 
@@ -93,7 +93,7 @@ function playGame(numRounds) {
         console.log(`You Lose! You: ${humanScore}. Computer: ${computerScore}.`);
     } else {
         console.log(`Tie Game! You: ${humanScore}. Computer: ${computerScore}.`);
-    }
+    };
 }
 
 // Play 5 rounds
